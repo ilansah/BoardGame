@@ -3,6 +3,11 @@ package fr.fges;
 import java.util.Scanner;
 
 public class Menu {
+    private final GameCollection gameCollection;
+
+    public Menu(GameCollection gameCollection) {
+        this.gameCollection = gameCollection;
+    }
 
     public static String getUserInput(String prompt) {
         // Scanner is a class in java that helps to read input from various sources like keyboard input, files, etc.
@@ -26,7 +31,7 @@ public class Menu {
         System.out.println(menuText);
     }
 
-    public static void addGame() {
+    public void addGame() {
         String title = getUserInput("Title");
         String minPlayersStr = getUserInput("Minimum Players");
         String maxPlayersStr = getUserInput("Maximum Players");
@@ -37,19 +42,16 @@ public class Menu {
 
         BoardGame game = new BoardGame(title, minPlayers, maxPlayers, category);
 
-        GameCollection.addGame(game);
+        gameCollection.addGame(game);
         System.out.println("Board game added successfully.");
     }
 
-    public static void removeGame() {
+    public void removeGame() {
         String title = getUserInput("Title of game to remove");
-
-        // get games from the collection, find the one that matches the title given by the user and remove
-        var games = GameCollection.getGames();
-
+        var games = gameCollection.getGames();
         for (BoardGame game : games) {
             if (game.title().equals(title)) {
-                GameCollection.removeGame(game);
+                gameCollection.removeGame(game);
                 System.out.println("Board game removed successfully.");
                 return;
             }
@@ -57,16 +59,16 @@ public class Menu {
         System.out.println("No board game found with that title.");
     }
 
-    public static void listAllGames() {
-        GameCollection.viewAllGames();
+    public void listAllGames() {
+        gameCollection.viewAllGames();
     }
 
-    public static void exit() {
+    public void exit() throws MenuExitException {
         System.out.println("Exiting the application. Goodbye!");
-        System.exit(0);
+        throw new MenuExitException();
     }
 
-    public static void handleMenu() {
+    public void handleMenu() throws MenuExitException {
         displayMainMenu();
 
         Scanner scanner = new Scanner(System.in);
@@ -80,4 +82,10 @@ public class Menu {
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }
+// Exception pour gérer la sortie du menu sans System.exit
+class MenuExitException extends RuntimeException {
+    public MenuExitException() {
+        super("Menu exited by user");
+    }
+}
 }
