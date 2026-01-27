@@ -1,15 +1,15 @@
-package fr.fges;
+1package fr.fges;
 
 public class Main {
     public static void main(String[] args) {
+        // Utilise games.json par défaut si aucun argument n'est fourni
+        String storageFile;
         if (args.length < 1) {
-            System.out.println("Usage: java -jar boardgamecollection.jar <storage-file>");
-            System.out.println("Storage file must be .json or .csv");
-            // System.exit(1);
-            return;
+            storageFile = "games.json";
+            System.out.println("Aucun fichier spécifié, utilisation du fichier par défaut: " + storageFile);
+        } else {
+            storageFile = args[0];
         }
-
-        String storageFile = args[0];
 
         // Check file extension
         if (!storageFile.endsWith(".json") && !storageFile.endsWith(".csv")) {

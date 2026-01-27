@@ -4,14 +4,16 @@ import java.util.Scanner;
 
 public class Menu {
     private final GameCollection gameCollection;
+    private final Scanner scanner;
 
     public Menu(GameCollection gameCollection) {
         this.gameCollection = gameCollection;
+        this.scanner = new Scanner(System.in);
     }
 
-    public static String getUserInput(String prompt) {
-        // Scanner is a class in java that helps to read input from various sources like keyboard input, files, etc.
-        Scanner scanner = new Scanner(System.in);
+    public String getUserInput(String prompt) {
+        // Scanner is a class in java that helps to read input from various sources like
+        // keyboard input, files, etc.
         // No new line for this one
         System.out.printf("%s: ", prompt);
         // Read input for the keyboard
@@ -71,7 +73,6 @@ public class Menu {
     public void handleMenu() throws MenuExitException {
         displayMainMenu();
 
-        Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
 
         switch (choice) {
@@ -82,10 +83,11 @@ public class Menu {
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }
+}
+
 // Exception pour gérer la sortie du menu sans System.exit
 class MenuExitException extends RuntimeException {
     public MenuExitException() {
         super("Menu exited by user");
     }
-}
 }

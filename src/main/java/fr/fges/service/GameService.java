@@ -1,7 +1,7 @@
 package fr.fges.service;
 
 import fr.fges.BoardGame;
-import fr.fges.repository.GameRepository;
+import fr.fges.GameRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class GameService {
     // la liste des jeux a ete deplacee ici depuis gamecollection
     private final List<BoardGame> games;
-    
+
     // on depend d'une interface pas dune implementation concrete
     // comme ca on peut changer json csv xml sans toucher ce code
     private final GameRepository repository;
@@ -28,7 +28,7 @@ public class GameService {
 
     // charge les jeux depuis le repository au demarrage
     private void loadGames() {
-        List<BoardGame> loadedGames = repository.load();
+        List<BoardGame> loadedGames = repository.findAll();
         games.clear();
         games.addAll(loadedGames);
     }
