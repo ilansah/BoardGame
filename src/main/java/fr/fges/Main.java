@@ -1,4 +1,4 @@
-1package fr.fges;
+package fr.fges;
 
 public class Main {
     public static void main(String[] args) {
