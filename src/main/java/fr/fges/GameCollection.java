@@ -47,8 +47,22 @@ public class GameCollection {
                 .toList();
 
         for (BoardGame game : sortedGames) {
-            System.out.println("Game: " + game.title() + " (" + game.minPlayers() + "-" + game.maxPlayers() + " players) - " + game.category());
+            System.out.println("Game: " + game.title() + " (" + game.minPlayers() + "-" + game.maxPlayers()
+                    + " players) - " + game.category());
         }
+    }
+
+    public BoardGame recommendGame(int playerCount) {
+        List<BoardGame> compatibleGames = games.stream()
+                .filter(game -> game.minPlayers() <= playerCount && game.maxPlayers() >= playerCount)
+                .toList();
+
+        if (compatibleGames.isEmpty()) {
+            return null;
+        }
+
+        int randomIndex = (int) (Math.random() * compatibleGames.size());
+        return compatibleGames.get(randomIndex);
     }
 
     public void loadFromFile() {
@@ -68,7 +82,8 @@ public class GameCollection {
         try {
             ObjectMapper mapper = new ObjectMapper();
             File file = new File(storageFile);
-            List<BoardGame> loadedGames = mapper.readValue(file, new TypeReference<List<BoardGame>>() {});
+            List<BoardGame> loadedGames = mapper.readValue(file, new TypeReference<List<BoardGame>>() {
+            });
             games.clear();
             games.addAll(loadedGames);
         } catch (IOException e) {
@@ -92,8 +107,7 @@ public class GameCollection {
                             parts[0],
                             Integer.parseInt(parts[1]),
                             Integer.parseInt(parts[2]),
-                            parts[3]
-                    );
+                            parts[3]);
                     games.add(game);
                 }
             }

@@ -38,6 +38,7 @@ Ensuite, Antonin s'est occupé de la logique métier avec la classe `GameService
 Pour finir, Victorian s'est occupé de rédiger ce rapport et de faire le schéma de l'architecture. Par contre, pour trouver les problèmes du début et les solutions (comme le découpage en couches), on a tous réfléchi ensemble pour se mettre d'accord.
 
 
+
 **Date :** 01/02/2025
 
 Nous allons implémenter les 3 features : 
@@ -45,6 +46,15 @@ Nous allons implémenter les 3 features :
 - Recommended Games
 - Week end Summary
 
+et aussi des tests unitaires pour le game service et le game repository.
+
 Victorian va s'occuper de la feature No duplicates, Ilan va s'occuper de la feature Recommended Games et Antonin va s'occuper de la feature Week end Summary.
 
--
+### Feature Recommended Games (Ilan)
+
+Pour cette feature, on a ajouté une méthode `recommendGame(int playerCount)` qui :
+- Filtre les jeux compatibles avec le nombre de joueurs demandé (entre `minPlayers` et `maxPlayers`)
+- Retourne un jeu aléatoire parmi les jeux compatibles
+- Retourne `null` si aucun jeu ne correspond
+
+On a mis cette logique dans `GameService` (la couche métier) et aussi dans `GameCollection` pour que ça marche avec le code actuel. Dans le menu, on a ajouté l'option 4 "Recommend Game" qui demande le nombre de joueurs et affiche une recommandation.

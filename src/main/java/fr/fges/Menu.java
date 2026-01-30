@@ -26,8 +26,9 @@ public class Menu {
                 1. Add Board Game
                 2. Remove Board Game
                 3. List All Board Games
-                4. Exit
-                Please select an option (1-4):
+                4. Recommend Game
+                5. Exit
+                Please select an option (1-5):
                 """;
 
         System.out.println(menuText);
@@ -65,6 +66,21 @@ public class Menu {
         gameCollection.viewAllGames();
     }
 
+    public void recommendGame() {
+        String playerCountStr = getUserInput("How many players?");
+        int playerCount = Integer.parseInt(playerCountStr);
+
+        BoardGame recommended = gameCollection.recommendGame(playerCount);
+
+        if (recommended == null) {
+            System.out.println("No game found for " + playerCount + " players.");
+        } else {
+            System.out.println("Recommended game: \"" + recommended.title() + "\" ("
+                    + recommended.minPlayers() + "-" + recommended.maxPlayers()
+                    + " players, " + recommended.category() + ")");
+        }
+    }
+
     public void exit() throws MenuExitException {
         System.out.println("Exiting the application. Goodbye!");
         throw new MenuExitException();
@@ -79,7 +95,8 @@ public class Menu {
             case "1" -> addGame();
             case "2" -> removeGame();
             case "3" -> listAllGames();
-            case "4" -> exit();
+            case "4" -> recommendGame();
+            case "5" -> exit();
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }

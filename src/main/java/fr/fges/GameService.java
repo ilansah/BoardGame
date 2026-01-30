@@ -27,4 +27,19 @@ public class GameService {
                 .sorted(Comparator.comparing(BoardGame::title))
                 .toList();
     }
+
+    public BoardGame recommendGame(int playerCount) {
+        // Filtrer les jeux compatibles avec le nombre de joueurs
+        List<BoardGame> compatibleGames = games.stream()
+                .filter(game -> game.minPlayers() <= playerCount && game.maxPlayers() >= playerCount)
+                .toList();
+
+        if (compatibleGames.isEmpty()) {
+            return null;
+        }
+
+        // Retourner un jeu aléatoire parmi les jeux compatibles
+        int randomIndex = (int) (Math.random() * compatibleGames.size());
+        return compatibleGames.get(randomIndex);
+    }
 }
