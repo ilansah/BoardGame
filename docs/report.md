@@ -58,3 +58,35 @@ Pour cette feature, on a ajouté une méthode `recommendGame(int playerCount)` q
 - Retourne `null` si aucun jeu ne correspond
 
 On a mis cette logique dans `GameService` (la couche métier) et aussi dans `GameCollection` pour que ça marche avec le code actuel. Dans le menu, on a ajouté l'option 4 "Recommend Game" qui demande le nombre de joueurs et affiche une recommandation.
+
+### Weekend Summary (Antonin)
+
+Pour cette feature, on a implémenté un menu dynamique qui change selon le jour de la semaine :
+
+**Fonctionnalités ajoutées :**
+
+1. **Méthode `getRandomGames(int count)` dans `GameCollection` :**
+   - Pioche entre 0 et 3 jeux aléatoires dans la collection
+   - Gère automatiquement le cas où il ya moins de 3 jeux (affiche tous les jeux dispo)
+   - Pas de doublons car chaque jeu pioché est retiré de la liste temporaire
+   - Utilise `Math.random()` pour générer des index aléatoires et je cast avec int pour retirer les décimales
+
+2. **Méthode `isWeekend()` dans `Menu` :**
+   - Détecte si on est samedi ou dimanche avec `LocalDate` et `DayOfWeek`
+   - Utilise la norme ISO 8601 (semaine commence le lundi)
+   - Retourne `true` pour samedi/dimanche, `false` sinon
+
+3. **Méthode `displayMainMenu()` modifiée :**
+   - Menu dynamique : affiche 5 options en semaine et 6 options le weekend
+   - En semaine : option 5 = Exit
+   - Le weekend : option 5 = Weekend Summary et option 6 = Exit
+
+4. **Méthode `displayWeekendSummary()` :**
+   - Affiche entre 0 et 3 jeux random avec le format : `- Titre (min-max players, catégorie)`
+   - Affiche le nombre réel de jeux trouvés dans le header
+   - Gère le cas d'une collection vide avec un message adapté
+
+5. **Méthode `handleMenu()` modifiée :**
+   - Double switch selon le jour : un pour la semaine (5 cases) et un pour le weekend (6 cases)
+   - Redirige vers `displayWeekendSummary()` quand l'utilisateur choisit l'option 5 le weekend
+   - L'option Exit est décalée en position 6 uniquement le weekend
