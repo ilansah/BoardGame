@@ -65,6 +65,23 @@ public class GameCollection {
         return compatibleGames.get(randomIndex);
     }
 
+    //renvoie 3 jeux random pour le weekend (ou moins si ya pas assez de jeux)
+    public List<BoardGame> getRandomGames(int count) {
+        List<BoardGame> result = new ArrayList<>();
+        List<BoardGame> availableGames = new ArrayList<>(games);
+
+        //si on a moins de jeux que demandé on renvoie tous les jeux
+        int actualCount = Math.min(count, availableGames.size());
+
+        //on prend des jeux random sans doublons
+        for (int i = 0; i < actualCount; i++) {
+            int randomIndex = (int) (Math.random() * availableGames.size());
+            result.add(availableGames.remove(randomIndex));
+        }
+
+        return result;
+    }
+
     public void loadFromFile() {
         File file = new File(storageFile);
         if (!file.exists()) {
