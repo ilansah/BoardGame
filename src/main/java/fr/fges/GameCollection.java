@@ -2,6 +2,7 @@ package fr.fges;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.fges.service.DuplicateGameException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,6 +27,10 @@ public class GameCollection {
     }
 
     public void addGame(BoardGame game) {
+        // verifie qu'aucun jeu avec le meme titre n'existe deja (case insensitive)
+        if (games.stream().anyMatch(g -> g.title().equalsIgnoreCase(game.title()))) {
+            throw new DuplicateGameException(game.title());
+        }
         games.add(game);
         saveToFile();
     }

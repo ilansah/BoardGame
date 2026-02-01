@@ -210,4 +210,54 @@ class GameServiceTest {
         // Vérifier que save() a été appelé 2 fois
         verify(mockRepository, times(2)).save(anyList());
     }
-}
+
+    @Test
+    @DisplayName("L'ajout d'un jeu avec un titre existant doit lever une DuplicateGameException")
+    void addGame_withDuplicateTitle_shouldThrowException() {
+        // Tenter d'ajouter un jeu avec un titre qui existe déjà
+        BoardGame duplicate = new BoardGame("Catan", 2, 4, "strategy");
+
+        // Vérifier que l'exception est levée
+        DuplicateGameException exception = assertThrows(
+                DuplicateGameException.class,
+                () -> gameService.addGame(duplicate)
+        );
+
+        // Vérifier le message et le titre
+        assertEquals("Catan", exception.getGameTitle());
+        assertTrue(exception.getMessage().contains("Catan"));
+
+        // Vérifier que le jeu n'a pas été ajouté
+        assertEquals(3, gameService.getAllGames().size());
+
+        // Vérifier que save() n'a jamais été appelé (pas d'ajout)
+        verify(mockRepository, never()).save(anyList());
+    }
+
+    @Test
+    @DisplayName("L'ajout d'un jeu avec un titre existant (différente casse) doit lever une exception")
+    void addGame_withDuplicateTitleDifferentCase_shouldThrowException() {
+        // Tenter d'ajouter un jeu avec le même titre mais en majuscules
+        BoardGame duplicate = new BoardGame("CATAN", 2, 4, "strategy");
+
+        // Vérifier que l'exception est levée (case insensitive)
+        assertThrows(DuplicateGameException.class, () -> gameService.addGame(duplicate));
+
+        // Vérifier que le jeu n'a pas été ajouté
+        assertEquals(3, gameService.getAllGames().size());
+    }
+
+    @Test
+    @DisplayName("existsByTitle doit retourner true pour un titre existant")
+    void existsByTitle_withExistingTitle_shouldReturnTrue() {
+        assertTrue(gameService.existsByTitle("Catan"));
+        assertTrue(gameService.existsByTitle("catan")); // case insensitive
+        assertTrue(gameService.existsByTitle("CATAN"));
+    }
+
+    @Test
+    @DisplayName("existsByTitle doit retourner false pour un titre inexistant")
+    void existsByTitle_withNonExistingTitle_shouldReturnFalse() {
+        assertFalse(gameService.existsByTitle("Monopoly"));
+        assertFalse(gameService.existsByTitle(""));
+    }

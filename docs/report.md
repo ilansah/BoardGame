@@ -90,3 +90,19 @@ Pour cette feature, on a implémenté un menu dynamique qui change selon le jour
    - Double switch selon le jour : un pour la semaine (5 cases) et un pour le weekend (6 cases)
    - Redirige vers `displayWeekendSummary()` quand l'utilisateur choisit l'option 5 le weekend
    - L'option Exit est décalée en position 6 uniquement le weekend
+
+---
+
+## 4. ajout feature  (février 2026)
+
+### Prévention des doublons
+- Ajout d'une exception métier `DuplicateGameException` (dans le package service) pour empêcher l'ajout de jeux avec le même nom (validation insensible à la casse).
+- La vérification est faite dans `GameService` et aussi dans `GameCollection` pour garantir la cohérence selon le point d'entrée.
+- L'interface utilisateur affiche un message d'erreur clair si un doublon est détecté.
+
+### Tests unitaires
+- Les tests de la fonctionnalité anti-doublons ont été ajoutés dans `GameServiceTest` (et déplacés dans le dossier `samplecode` pour respecter l'organisation demandée).
+- Les tests vérifient :
+  - L'ajout d'un jeu avec un nom déjà existant lève bien l'exception.
+  - La validation fonctionne même si la casse est différente (ex : "Catan" et "CATAN").
+  - La méthode `existsByTitle` fonctionne correctement.

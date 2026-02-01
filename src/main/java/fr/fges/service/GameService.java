@@ -35,7 +35,11 @@ public class GameService {
 
     // ajoute un jeu et sauvegarde automatiquement
     // avant cetait dans gamecollection qui faisait tout
+    // verifie qu'aucun jeu avec le meme titre n'existe deja
     public void addGame(BoardGame game) {
+        if (existsByTitle(game.title())) {
+            throw new DuplicateGameException(game.title());
+        }
         games.add(game);
         saveGames(); // on delegue au repository
     }
@@ -73,6 +77,13 @@ public class GameService {
     // verifie si la collection est vide
     public boolean isEmpty() {
         return games.isEmpty();
+    }
+
+    // verifie si un jeu avec ce titre existe deja
+    // utilise pour la validation avant ajout
+    public boolean existsByTitle(String title) {
+        return games.stream()
+                .anyMatch(game -> game.title().equalsIgnoreCase(title));
     }
 
     // sauvegarde via le repository

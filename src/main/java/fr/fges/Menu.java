@@ -1,5 +1,7 @@
 package fr.fges;
 
+import fr.fges.service.DuplicateGameException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -65,8 +67,12 @@ public class Menu {
 
         BoardGame game = new BoardGame(title, minPlayers, maxPlayers, category);
 
-        gameCollection.addGame(game);
-        System.out.println("Board game added successfully.");
+        try {
+            gameCollection.addGame(game);
+            System.out.println("Board game added successfully.");
+        } catch (DuplicateGameException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     public void removeGame() {
