@@ -1,10 +1,7 @@
-package fr.fges.service;
+package fr.fges.exceptions;
 
 /**
- * Exception levée lorsqu'on tente d'ajouter un jeu avec un titre qui existe déjà
- * dans la collection.
- * Cette exception hérite de RuntimeException pour ne pas obliger le catch partout
- * mais permet quand même une gestion fine des erreurs métier.
+ * DuplicateGameException - Exception levée lors d'un doublon
  */
 public class DuplicateGameException extends RuntimeException {
     private final String gameTitle;

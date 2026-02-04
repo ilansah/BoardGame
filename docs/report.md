@@ -93,7 +93,7 @@ Pour cette feature, on a implémenté un menu dynamique qui change selon le jour
 
 ---
 
-## 4. ajout feature  (février 2026)
+## Ajout feature No duplicates (Victorian)
 
 ### Prévention des doublons
 - Ajout d'une exception métier `DuplicateGameException` (dans le package service) pour empêcher l'ajout de jeux avec le même nom (validation insensible à la casse).
@@ -106,3 +106,54 @@ Pour cette feature, on a implémenté un menu dynamique qui change selon le jour
   - L'ajout d'un jeu avec un nom déjà existant lève bien l'exception.
   - La validation fonctionne même si la casse est différente (ex : "Catan" et "CATAN").
   - La méthode `existsByTitle` fonctionne correctement.
+
+
+**Date :** 08/02/2025
+
+Cette semaine nous devons séparer le code en couches. Avec des layers différentes pour chaque fonctionnalité, comme vu en cours. Changer le switch pour le weekend. 
+Modification du game service pour qu'il utilise le repository. Ajout d'un nouveau shema pour modéliser cette structure.
+Ajout de test et des nouvelles features.
+Plus ajout de la documentation.
+
+## Ajout layers (Ilan)
+
+Pour bien organiser le code et faire propre, j'ai tout séparé en plusieurs packages qui correspondent à des couches logiques (Layers). Ça permet de découpler les fonctionnalités :
+
+- **fr.fges.presentation** : C'est la couche visible par l'utilisateur. Elle contient le `Menu` (qui gère l'affichage) et `InputHandler` (qui gère les entrées clavier).
+- **fr.fges.application** : C'est la couche qui fait le lien. J'y ai mis les **Commandes** (Pattern Command). Chaque action du menu est une classe autonome (`AddGameCommand`, `RemoveGameCommand`...) qui fait le pont entre le menu et le service.
+- **fr.fges.domain** : C'est le cœur du programme.
+    - `service` : Contient `GameService` avec toute la logique métier (vérifications, règles).
+    - `model` : Contient `BoardGame`, l'objet de données de base.
+- **fr.fges.infrastructure** : C'est la couche technique. Elle contient les implémentations de sauvegarde (`CsvGameRepository`, `JsonGameRepository`).
+
+Voici un schéma pour visualiser comment ça communique :
+
+```mermaid
+graph TD
+    subgraph Presentation
+        Menu
+        InputHandler
+    end
+    subgraph Application
+        Commandes[Commandes (Add, List...)]
+    end
+    subgraph Domain
+        Service[GameService]
+        Model[BoardGame]
+    end
+    subgraph Infrastructure
+        Repo[Impémentations Repository (CSV/JSON)]
+    end
+
+    Menu -->|Utilise| InputHandler
+    Menu -->|Exécute| Commandes
+    Commandes -->|Appelle| Service
+    Service -->|Manipule| Model
+    Service -->|Sauvegarde via interface| Repo
+```
+
+L'avantage de cette structure, c'est que si demain on veut changer la façon de sauvegarder, on a juste à toucher à la couche **Infrastructure**. Le reste du code (Menu, Service) ne bougera pas. C'est le principe de l'injection de dépendances qu'on a mis en place dans le `Main`.
+Plus ajout de la documentation.
+
+
+

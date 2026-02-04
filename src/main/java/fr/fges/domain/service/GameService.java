@@ -1,94 +1,100 @@
-package fr.fges.service;
+package fr.fges.domain.service;
 
-import fr.fges.BoardGame;
-import fr.fges.GameRepository;
+import fr.fges.domain.model.BoardGame;
+import fr.fges.exceptions.DuplicateGameException;
+import fr.fges.infrastructure.repository.GameRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-// classe qui gere la logique metier de la collection
-// elle fait que gerer les jeux pas l'affichage ni la sauvegarde directe
+/**
+ * GameService - Service métier pour la gestion des jeux de société
+ */
 public class GameService {
-    // la liste des jeux a ete deplacee ici depuis gamecollection
     private final List<BoardGame> games;
-
-    // on depend d'une interface pas dune implementation concrete
-    // comme ca on peut changer json csv xml sans toucher ce code
     private final GameRepository repository;
 
-    // injection de dependance par le constructeur
-    // on recoit le repository de lexterieur
     public GameService(GameRepository repository) {
         this.repository = repository;
         this.games = new ArrayList<>();
-        loadGames(); // on charge direct au demarrage
+        loadGames();
     }
 
-    // charge les jeux depuis le repository au demarrage
     private void loadGames() {
         List<BoardGame> loadedGames = repository.findAll();
         games.clear();
         games.addAll(loadedGames);
     }
 
-    // ajoute un jeu et sauvegarde automatiquement
-    // avant cetait dans gamecollection qui faisait tout
-    // verifie qu'aucun jeu avec le meme titre n'existe deja
     public void addGame(BoardGame game) {
         if (existsByTitle(game.title())) {
             throw new DuplicateGameException(game.title());
         }
         games.add(game);
-        saveGames(); // on delegue au repository
+        saveGames();
     }
 
-    // supprime un jeu par son titre
-    // avant on prenait lobjet complet maintenant juste le titre c'est plus simple
     public void removeGame(String title) {
         games.removeIf(game -> game.title().equals(title));
         saveGames();
     }
 
-    // retourne tous les jeux sans tri
-    // copie defensive pour proteger la liste interne
     public List<BoardGame> getAllGames() {
         return new ArrayList<>(games);
     }
 
-    // logique de tri extraite de viewallgames
-    // avant c'etait melange avec laffichage maintenant cest separe
-    // le service fait le tri et le controllerfera l'affichage
     public List<BoardGame> getSortedGames() {
         return games.stream()
                 .sorted(Comparator.comparing(BoardGame::title))
                 .toList();
     }
 
-    // recherche un jeu par titre
-    // retourne optional pour eviter les null
     public Optional<BoardGame> findByTitle(String title) {
         return games.stream()
                 .filter(game -> game.title().equals(title))
                 .findFirst();
     }
 
-    // verifie si la collection est vide
     public boolean isEmpty() {
         return games.isEmpty();
     }
 
-    // verifie si un jeu avec ce titre existe deja
-    // utilise pour la validation avant ajout
     public boolean existsByTitle(String title) {
         return games.stream()
                 .anyMatch(game -> game.title().equalsIgnoreCase(title));
     }
 
-    // sauvegarde via le repository
-    // on sait pas comment ca sauvegarde json csv ou autre
-    // c'est le repository qui gere ca
+    public BoardGame recommendGame(int playerCount) {
+
+        List<BoardGame> compatibleGames = games.stream()
+                .filter(game -> game.minPlayers() <= playerCount && game.maxPlayers() >= playerCount)
+                .toList();
+
+        if (compatibleGames.isEmpty()) {
+            return null;
+        }
+
+        int randomIndex = (int) (Math.random() * compatibleGames.size());
+        return compatibleGames.get(randomIndex);
+    }
+
+    public List<BoardGame> getRandomGames(int count) {
+        List<BoardGame> result = new ArrayList<>();
+        List<BoardGame> availableGames = new ArrayList<>(games);
+
+        int actualCount = Math.min(count, availableGames.size());
+
+        for (int i = 0; i < actualCount; i++) {
+            int randomIndex = (int) (Math.random() * availableGames.size());
+
+            result.add(availableGames.remove(randomIndex));
+        }
+
+        return result;
+    }
+
     private void saveGames() {
         repository.save(games);
     }

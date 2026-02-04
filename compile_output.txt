@@ -1,0 +1,226 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< fr.fges:boardgamecollection >---------------------
+[INFO] Building boardgamecollection 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ boardgamecollection ---
+[INFO] skip non existing resourceDirectory C:\Users\user\OneDrive\Ilan.sahraoui\École (CATHO)\L3_SDN\S2\DesignPatern\BoardGame\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ boardgamecollection ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 20 source files with javac [debug target 21] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] location of system modules is not set in conjunction with -source 21
+  not setting the location of system modules may lead to class files that cannot run on JDK 21
+    --release 21 is recommended instead of -source 21 -target 21 because it sets the location of system modules automatically
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[3,15] cannot find symbol
+  symbol:   class BoardGame
+  location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[6,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[23,19] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[32,27] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[3,15] cannot find symbol
+  symbol:   class BoardGame
+  location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[4,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[24,19] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[26,29] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[3,15] cannot find symbol
+  symbol:   class BoardGame
+  location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[5,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[21,19] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[24,33] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[3,15] cannot find symbol
+  symbol:   class BoardGame
+  location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[5,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[24,19] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[27,30] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[3,15] cannot find symbol
+  symbol:   class BoardGame
+  location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[4,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[20,19] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[22,34] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[5,23] cannot find symbol
+  symbol:   class GameService
+  location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[39,17] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.presentation.Menu
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[55,37] cannot find symbol
+  symbol:   class GameService
+  location: class fr.fges.presentation.Menu
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[50,9] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[50,30] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[33,14] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[42,14] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[36,9] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[38,18] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[29,14] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[39,18] cannot find symbol
+  symbol:   class BoardGame
+  location: class fr.fges.application.command.WeekendSummaryCommand
+[INFO] 31 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.843 s
+[INFO] Finished at: 2026-02-03T10:52:22+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project boardgamecollection: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[3,15] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[6,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[23,19] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[32,27] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[3,15] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[4,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[24,19] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[26,29] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[3,15] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[5,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[21,19] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[24,33] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[3,15] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[5,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[24,19] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[27,30] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[3,15] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: package fr.fges
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[4,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[20,19] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[22,34] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[5,23] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: package fr.fges.service
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[39,17] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.presentation.Menu
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/presentation/Menu.java:[55,37] cannot find symbol
+[ERROR]   symbol:   class GameService
+[ERROR]   location: class fr.fges.presentation.Menu
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[50,9] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/AddGameCommand.java:[50,30] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.AddGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[33,14] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/ListGamesCommand.java:[42,14] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.ListGamesCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RecommendGameCommand.java:[36,9] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.RecommendGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/RemoveGameCommand.java:[38,18] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.RemoveGameCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[29,14] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] /C:/Users/user/OneDrive/Ilan.sahraoui/École (CATHO)/L3_SDN/S2/DesignPatern/BoardGame/src/main/java/fr/fges/application/command/WeekendSummaryCommand.java:[39,18] cannot find symbol
+[ERROR]   symbol:   class BoardGame
+[ERROR]   location: class fr.fges.application.command.WeekendSummaryCommand
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

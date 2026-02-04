@@ -1,1 +1,11 @@
-[]
+[ {
+  "title" : "Uno",
+  "minPlayers" : 2,
+  "maxPlayers" : 12,
+  "category" : "family"
+}, {
+  "title" : "Monopoly",
+  "minPlayers" : 2,
+  "maxPlayers" : 15,
+  "category" : "strategy"
+} ]

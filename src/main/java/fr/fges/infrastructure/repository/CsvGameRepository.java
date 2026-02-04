@@ -1,9 +1,14 @@
-package fr.fges;
+package fr.fges.infrastructure.repository;
+
+import fr.fges.domain.model.BoardGame;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CsvGameRepository - Implémentation CSV du repository
+ */
 public class CsvGameRepository implements GameRepository {
     private final String filePath;
 
@@ -15,6 +20,7 @@ public class CsvGameRepository implements GameRepository {
     public List<BoardGame> findAll() {
         List<BoardGame> games = new ArrayList<>();
         File file = new File(filePath);
+
         if (!file.exists()) {
             return games;
         }
@@ -22,11 +28,13 @@ public class CsvGameRepository implements GameRepository {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             boolean firstLine = true;
+
             while ((line = reader.readLine()) != null) {
                 if (firstLine) {
                     firstLine = false;
-                    continue; // skip header
+                    continue;
                 }
+
                 String[] parts = line.split(",");
                 if (parts.length >= 4) {
                     BoardGame game = new BoardGame(
@@ -40,6 +48,7 @@ public class CsvGameRepository implements GameRepository {
         } catch (IOException e) {
             System.err.println("Error loading from CSV: " + e.getMessage());
         }
+
         return games;
     }
 
@@ -48,8 +57,10 @@ public class CsvGameRepository implements GameRepository {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("title,minPlayers,maxPlayers,category");
             writer.newLine();
+
             for (BoardGame game : games) {
-                writer.write(game.title() + "," + game.minPlayers() + "," + game.maxPlayers() + "," + game.category());
+                writer.write(game.title() + "," + game.minPlayers() + ","
+                        + game.maxPlayers() + "," + game.category());
                 writer.newLine();
             }
         } catch (IOException e) {

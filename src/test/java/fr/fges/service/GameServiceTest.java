@@ -1,7 +1,8 @@
 package fr.fges.service;
 
-import fr.fges.BoardGame;
-import fr.fges.GameRepository;
+import fr.fges.domain.model.BoardGame;
+import fr.fges.domain.service.GameService;
+import fr.fges.infrastructure.repository.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,6 @@ import static org.mockito.Mockito.*;
 
 /**
  * Tests unitaires pour la classe GameService
- * Utilise Mockito pour mocker le GameRepository
  */
 @DisplayName("GameService Tests")
 class GameServiceTest {
@@ -27,29 +27,23 @@ class GameServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Créer un mock du repository
         mockRepository = mock(GameRepository.class);
 
-        // Créer des jeux de test
         testGames = new ArrayList<>();
         testGames.add(new BoardGame("Catan", 3, 4, "strategy"));
         testGames.add(new BoardGame("Azul", 2, 4, "family"));
         testGames.add(new BoardGame("7 Wonders", 2, 7, "strategy"));
 
-        // Configurer le mock pour retourner les jeux de test lors du chargement
         when(mockRepository.findAll()).thenReturn(new ArrayList<>(testGames));
 
-        // Créer le service (qui va charger les jeux depuis le mock)
         gameService = new GameService(mockRepository);
     }
 
     @Test
     @DisplayName("Le constructeur doit charger les jeux depuis le repository")
     void constructor_shouldLoadGamesFromRepository() {
-        // Vérifier que findAll() a été appelé lors de la construction
         verify(mockRepository, times(1)).findAll();
 
-        // Vérifier que les jeux ont été chargés
         assertEquals(3, gameService.getAllGames().size());
     }
 
@@ -220,8 +214,7 @@ class GameServiceTest {
         // Vérifier que l'exception est levée
         DuplicateGameException exception = assertThrows(
                 DuplicateGameException.class,
-                () -> gameService.addGame(duplicate)
-        );
+                () -> gameService.addGame(duplicate));
 
         // Vérifier le message et le titre
         assertEquals("Catan", exception.getGameTitle());

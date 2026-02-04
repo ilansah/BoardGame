@@ -1,8 +1,17 @@
 package fr.fges;
 
+import fr.fges.domain.service.GameService;
+import fr.fges.exceptions.MenuExitException;
+import fr.fges.infrastructure.repository.CsvGameRepository;
+import fr.fges.infrastructure.repository.GameRepository;
+import fr.fges.infrastructure.repository.JsonGameRepository;
+import fr.fges.presentation.Menu;
+
+/**
+ * Main - Point d'entrée de l'application
+ */
 public class Main {
     public static void main(String[] args) {
-        // Utilise games.json par défaut si aucun argument n'est fourni
         String storageFile;
         if (args.length < 1) {
             storageFile = "games.json";
@@ -11,26 +20,33 @@ public class Main {
             storageFile = args[0];
         }
 
-        // Check file extension
         if (!storageFile.endsWith(".json") && !storageFile.endsWith(".csv")) {
             System.out.println("Error: Storage file must have .json or .csv extension");
-            // System.exit(1);
             return;
         }
 
-        GameCollection gameCollection = new GameCollection();
-        gameCollection.setStorageFile(storageFile);
-        gameCollection.loadFromFile();
+        GameRepository repository;
+        if (storageFile.endsWith(".json")) {
+            repository = new JsonGameRepository(storageFile);
+        } else {
+            repository = new CsvGameRepository(storageFile);
+        }
+
+        GameService gameService = new GameService(repository);
 
         System.out.println("Using storage file: " + storageFile);
 
-        Menu menu = new Menu(gameCollection);
+        Menu menu = new Menu(gameService);
+
         while (true) {
             try {
                 menu.handleMenu();
             } catch (MenuExitException e) {
+
                 break;
             }
         }
+
+        menu.close();
     }
 }
