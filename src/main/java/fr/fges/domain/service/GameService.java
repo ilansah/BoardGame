@@ -95,6 +95,13 @@ public class GameService {
         return result;
     }
 
+    public List<BoardGame> findGamesByPlayerCount(int playerCount) {
+        return games.stream()
+                .filter(game -> game.minPlayers() <= playerCount && game.maxPlayers() >= playerCount)
+                .sorted(Comparator.comparing(BoardGame::title))
+                .toList();
+    }
+
     private void saveGames() {
         repository.save(games);
     }

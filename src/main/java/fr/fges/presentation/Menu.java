@@ -29,12 +29,13 @@ public class Menu {
         commands.put("2", new RemoveGameCommand(gameService, inputHandler));
         commands.put("3", new ListGamesCommand(gameService));
         commands.put("4", new RecommendGameCommand(gameService, inputHandler));
+        commands.put("5", new FindGamesByPlayerCountCommand(gameService, inputHandler));
 
         if (isWeekend()) {
-            commands.put("5", new WeekendSummaryCommand(gameService));
-            commands.put("6", new ExitCommand());
+            commands.put("6", new WeekendSummaryCommand(gameService));
+            commands.put("7", new ExitCommand());
         } else {
-            commands.put("5", new ExitCommand());
+            commands.put("6", new ExitCommand());
         }
     }
 
