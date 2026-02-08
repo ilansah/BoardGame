@@ -14,14 +14,15 @@ public class WeekdayMenuDisplay implements MenuDisplay {
                 3. List All Board Games
                 4. Recommend Game
                 5. Find Games by Player Count
-                6. Exit
-                Please select an option (1-6):
+                6. Undo Last Action
+                7. Exit
+                Please select an option (1-7):
                 """;
         System.out.print(menuText);
     }
 
     @Override
     public int getMaxOption() {
-        return 6;
+        return 7;
     }
 }

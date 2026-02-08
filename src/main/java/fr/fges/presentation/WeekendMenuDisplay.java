@@ -14,15 +14,16 @@ public class WeekendMenuDisplay implements MenuDisplay {
                 3. List All Board Games
                 4. Recommend Game
                 5. Find Games by Player Count
-                6. Weekend Summary
-                7. Exit
-                Please select an option (1-7):
+                6. Undo Last Action
+                7. Weekend Summary
+                8. Exit
+                Please select an option (1-8):
                 """;
         System.out.print(menuText);
     }
 
     @Override
     public int getMaxOption() {
-        return 7;
+        return 8;
     }
 }
