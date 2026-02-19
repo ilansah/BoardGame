@@ -6,13 +6,13 @@ import fr.fges.exceptions.DuplicateGameException;
 import fr.fges.presentation.InputHandler;
 
 /**
- * AddGameCommand - Commande pour ajouter un jeu
+ * AddAction - Commande pour ajouter un jeu
  */
-public class AddGameCommand implements Command {
+public class AddAction implements Command {
     private final GameService gameService;
     private final InputHandler inputHandler;
 
-    public AddGameCommand(GameService gameService, InputHandler inputHandler) {
+    public AddAction(GameService gameService, InputHandler inputHandler) {
         this.gameService = gameService;
         this.inputHandler = inputHandler;
     }
@@ -35,5 +35,10 @@ public class AddGameCommand implements Command {
         } catch (DuplicateGameException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Add a game";
     }
 }

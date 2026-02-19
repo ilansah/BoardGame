@@ -240,3 +240,14 @@ CreateTournamentCmd -->|délègue| TournamentService
 Implémentation du mode tournois :
 
 
+**Refactoring Commandes & Menu (Ilan)**
+
+J'ai changé la façon dont on gère les commandes dans le `Menu`. Avant on utilisait une `Map` avec les clés "1", "2"... c'était pas terrible si on voulait changer l'ordre ou ajouter un truc au milieu, fallait tout décaler à la main.
+
+Du coup, j'ai tout passé en `List<Command>` !
+Maintenant:
+1. Le menu affiche les options automatiquement avec une boucle `for` (1., 2., 3...).
+2. J'ai ajouté une méthode `getName()` dans l'interface `Command`. Comme ça chaque commande (Add, List, Remove...) donne son propre nom à afficher dans le menu.
+3. J'ai renommé `AddGameCommand` en `AddAction` pour bien montrer que l'objet contient toute l'action (demander les infos à l'utilisateur + appeler le service).
+
+C'est plus propre et plus facile à maintenir si on veut ajouter des options plus tard !

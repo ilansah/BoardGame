@@ -32,4 +32,9 @@ public class WeekendSummaryCommand implements Command {
 
         System.out.println();
     }
+
+    @Override
+    public String getName() {
+        return "Weekend Summary";
+    }
 }

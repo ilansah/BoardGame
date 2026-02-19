@@ -12,4 +12,9 @@ public class ExitCommand implements Command {
         System.out.println("Exiting the application. Goodbye!");
 
     }
+
+    @Override
+    public String getName() {
+        return "Exit";
+    }
 }

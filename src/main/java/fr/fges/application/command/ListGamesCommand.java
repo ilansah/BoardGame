@@ -29,4 +29,9 @@ public class ListGamesCommand implements Command {
                     + game.maxPlayers() + " players) - " + game.category());
         }
     }
+
+    @Override
+    public String getName() {
+        return "List all games";
+    }
 }

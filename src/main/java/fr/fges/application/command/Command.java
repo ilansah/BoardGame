@@ -6,4 +6,6 @@ package fr.fges.application.command;
 public interface Command {
 
     void execute();
+
+    String getName();
 }

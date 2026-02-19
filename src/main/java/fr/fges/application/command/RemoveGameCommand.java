@@ -32,4 +32,9 @@ public class RemoveGameCommand implements Command {
             System.out.println("No board game found with that title.");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Remove a game";
+    }
 }

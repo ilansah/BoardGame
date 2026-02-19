@@ -36,4 +36,9 @@ public class UndoCommand implements Command {
             System.out.println("Failed to undo action.");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Undo last action";
+    }
 }

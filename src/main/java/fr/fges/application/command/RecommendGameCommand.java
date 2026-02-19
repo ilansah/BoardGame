@@ -31,4 +31,9 @@ public class RecommendGameCommand implements Command {
                     + " players, " + recommended.category() + ")");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Recommend a game";
+    }
 }

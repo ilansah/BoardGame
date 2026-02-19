@@ -7,7 +7,8 @@ import fr.fges.presentation.InputHandler;
 import java.util.List;
 
 /**
- * FindGamesByPlayerCountCommand - Commande pour trouver tous les jeux compatibles avec un nombre de joueurs
+ * FindGamesByPlayerCountCommand - Commande pour trouver tous les jeux
+ * compatibles avec un nombre de joueurs
  */
 public class FindGamesByPlayerCountCommand implements Command {
     private final GameService gameService;
@@ -35,5 +36,10 @@ public class FindGamesByPlayerCountCommand implements Command {
                         + " players, " + game.category() + ")");
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Find games by player count";
     }
 }
