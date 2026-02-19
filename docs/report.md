@@ -156,4 +156,87 @@ L'avantage de cette structure, c'est que si demain on veut changer la façon de 
 Plus ajout de la documentation.
 
 
+**Date :** 22/02/2025
+
+Shéma tornois :
+
+'''mermaid
+graph TD
+    subgraph UI["Interface Tournoi"]
+        TournamentUI["TournamentUI"]
+        InputHandler["InputHandler"]
+    end
+
+    subgraph Commands["Commandes Tournoi"]
+        CreateTournamentCmd["CreateTournamentCommand"]
+        RunTournamentCmd["RunTournamentCommand"]
+    end
+
+    subgraph Services["Services"]
+        TournamentService["TournamentService<br/>- createTournament<br/>- addPlayer"]
+        TournamentOrchestrator["TournamentOrchestrator<br/>- runTournament<br/>- playMatch<br/>- determineChampion"]
+    end
+
+    subgraph TournamentLogic["Format Tournoi - Strategy Pattern"]
+        TournamentFormat["TournamentFormat<br/>(Interface)<br/>- generateMatches<br/>- determineChampion"]
+        ChampionshipFormat["ChampionshipFormat<br/>Tous vs Tous<br/>Système Points"]
+        SingleElimination["SingleEliminationFormat<br/>Élimination Directe<br/>Bracket"]
+        RoundRobinFormat["RoundRobinFormat<br/>Chaque joueur<br/>vs tous"]
+    end
+
+    subgraph Models["Modèles de Domaine"]
+        Player["Player<br/>- id<br/>- name<br/>- wins<br/>- losses<br/>- getWinRate"]
+        Tournament["Tournament<br/>- id<br/>- name<br/>- players<br/>- format<br/>- game<br/>- matches<br/>- champion<br/>- status"]
+        Match["Match<br/>- player1<br/>- player2<br/>- game<br/>- winner<br/>- round"]
+    end
+
+    subgraph Existing["Utilise Existant"]
+        GameService["GameService"]
+        BoardGame["BoardGame"]
+    end
+
+    TournamentUI -->|utilise| InputHandler
+    TournamentUI -->|affiche/lance| CreateTournamentCmd
+    TournamentUI -->|affiche/lance| RunTournamentCmd
+CreateTournamentCmd -->|délègue| TournamentService
+    RunTournamentCmd -->|délègue| TournamentOrchestrator
+
+    TournamentService -->|crée| Tournament
+    TournamentService -->|utilise| BoardGame
+
+    TournamentOrchestrator -->|utilise| TournamentFormat
+    TournamentOrchestrator -->|génère| Match
+    TournamentOrchestrator -->|manipule| Tournament
+    TournamentOrchestrator -->|récupère les joueurs de| Tournament
+
+    TournamentFormat -.->|implémente| ChampionshipFormat
+    TournamentFormat -.->|implémente| SingleElimination
+    TournamentFormat -.->|implémente| RoundRobinFormat
+
+    Tournament -->|contient| Player
+    Tournament -->|contient| Match
+    Tournament -->|utilise| TournamentFormat
+    Tournament -->|joue avec| BoardGame
+
+    Match -->|oppose| Player
+    Match -->|joue avec| BoardGame
+
+    GameService -->|fournit| BoardGame
+
+    style TournamentUI fill:#e1f5ff
+    style CreateTournamentCmd fill:#fff3e0
+    style RunTournamentCmd fill:#fff3e0
+    style TournamentService fill:#f3e5f5
+    style TournamentOrchestrator fill:#f3e5f5
+    style TournamentFormat fill:#fce4ec
+    style ChampionshipFormat fill:#fce4ec
+    style SingleElimination fill:#fce4ec
+    style RoundRobinFormat fill:#fce4ec
+    style Player fill:#e8f5e9
+    style Tournament fill:#e8f5e9
+    style Match fill:#e8f5e9
+'''
+
+Implémentation du mode tournois :
+
 
