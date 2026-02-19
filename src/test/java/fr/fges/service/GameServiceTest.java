@@ -254,3 +254,74 @@ class GameServiceTest {
         assertFalse(gameService.existsByTitle("Monopoly"));
         assertFalse(gameService.existsByTitle(""));
     }
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner tous les jeux compatibles triés alphabétiquement")
+    void findGamesByPlayerCount_shouldReturnCompatibleGamesSortedAlphabetically() {
+        // Rechercher des jeux pour 3 joueurs
+        List<BoardGame> result = gameService.findGamesByPlayerCount(3);
+
+        // Vérifier que les bons jeux sont retournés
+        assertEquals(2, result.size());
+        
+        // Vérifier l'ordre alphabétique
+        assertEquals("7 Wonders", result.get(0).title()); // 2-7 joueurs, contient 3
+        assertEquals("Catan", result.get(1).title());     // 3-4 joueurs, contient 3
+    }
+
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner une liste vide si aucun jeu ne correspond")
+    void findGamesByPlayerCount_shouldReturnEmptyListWhenNoGamesMatch() {
+        // Rechercher des jeux pour 10 joueurs (aucun jeu ne va jusqu'à 10)
+        List<BoardGame> result = gameService.findGamesByPlayerCount(10);
+
+        // Vérifier que la liste est vide
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner tous les jeux pour un nombre de joueurs dans toutes les plages")
+    void findGamesByPlayerCount_shouldReturnAllGamesWhenPlayerCountMatchesAll() {
+        // Rechercher des jeux pour 4 joueurs
+        List<BoardGame> result = gameService.findGamesByPlayerCount(4);
+
+        // Tous les jeux de test supportent 4 joueurs
+        assertEquals(3, result.size());
+        
+        // Vérifier l'ordre alphabétique
+        assertEquals("7 Wonders", result.get(0).title());
+        assertEquals("Azul", result.get(1).title());
+        assertEquals("Catan", result.get(2).title());
+    }
+
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner les jeux pour le nombre minimum de joueurs")
+    void findGamesByPlayerCount_shouldReturnGamesForMinPlayerCount() {
+        // Rechercher des jeux pour 2 joueurs
+        List<BoardGame> result = gameService.findGamesByPlayerCount(2);
+
+        // Azul et 7 Wonders commencent à 2 joueurs
+        assertEquals(2, result.size());
+        assertEquals("7 Wonders", result.get(0).title());
+        assertEquals("Azul", result.get(1).title());
+    }
+
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner les jeux pour le nombre maximum de joueurs")
+    void findGamesByPlayerCount_shouldReturnGamesForMaxPlayerCount() {
+        // Rechercher des jeux pour 7 joueurs
+        List<BoardGame> result = gameService.findGamesByPlayerCount(7);
+
+        // Seul 7 Wonders va jusqu'à 7 joueurs
+        assertEquals(1, result.size());
+        assertEquals("7 Wonders", result.get(0).title());
+    }
+
+    @Test
+    @DisplayName("findGamesByPlayerCount doit retourner une liste vide pour un nombre de joueurs inférieur au minimum")
+    void findGamesByPlayerCount_shouldReturnEmptyListForPlayerCountBelowMinimum() {
+        // Rechercher des jeux pour 1 joueur (tous nos jeux nécessitent au moins 2 joueurs)
+        List<BoardGame> result = gameService.findGamesByPlayerCount(1);
+
+        // Vérifier que la liste est vide
+        assertTrue(result.isEmpty());
+    }
