@@ -251,3 +251,37 @@ Maintenant:
 3. J'ai renommé `AddGameCommand` en `AddAction` pour bien montrer que l'objet contient toute l'action (demander les infos à l'utilisateur + appeler le service).
 
 C'est plus propre et plus facile à maintenir si on veut ajouter des options plus tard !
+
+
+**Date :** 20/02/2026
+
+## Simplification de l'affichage du Menu (Antonin)
+
+Après avoir montré le projet au prof, il nous a fait trois remarques importantes :
+1. Le cas pour le weekend est trop complexe
+2. Les displays sont trop complexes
+3. MenuDisplay doit rester une classe classique
+
+On avait fait un peu trop avec le pattern Strategy pour quelque chose qui devait rester simple. Du coup j'ai fait un refactoring pour simplifier tout ça :
+
+### Ce qui a changé :
+
+**1. Transformation de MenuDisplay :**
+- Avant : Une interface `MenuDisplay` avec deux implémentations séparées (`WeekendMenuDisplay` et `WeekdayMenuDisplay`)
+- Après : Une seule classe simple `MenuDisplay` avec une méthode `display(boolean isWeekend)` qui prend un paramètre pour afficher le bon menu
+
+**2. Simplification de Menu.java :**
+- Suppression de la liste dynamique de commandes `List<Command>` qui se construisait selon le jour
+- Remplacement par un simple `switch/case` qui vérifie `isWeekend` pour exécuter la bonne commande
+- Suppression de la méthode `initializeCommands()` qui était trop complexe pour ce qu'elle faisait
+- On garde juste `GameService` et on crée les commandes à la volée quand l'utilisateur choisit une option
+
+**3. Correction d'ExitCommand :**
+- J'ai ajouté `throw new MenuExitException()` dans la méthode `execute()` parce qu'elle était manquante et le programme ne se fermait jamais proprement
+
+**4. Fichiers supprimés :**
+- `WeekendMenuDisplay.java`
+- `WeekdayMenuDisplay.java`
+
+Le code est maintenant beaucoup plus lisible et direct. Au lieu d'avoir une architecture complexe pour afficher un menu, on a juste une méthode avec un if/else.
+
