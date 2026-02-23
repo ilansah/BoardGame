@@ -17,14 +17,15 @@ public class MenuDisplay {
         System.out.println("4. Recommend Game");
         System.out.println("5. Find Games by Player Count");
         System.out.println("6. Undo Last Action");
+        System.out.println("7. Tournament Mode");
         
         if (isWeekend) {
-            System.out.println("7. Weekend Summary");
+            System.out.println("8. Weekend Summary");
+            System.out.println("9. Exit");
+            System.out.print("Please select an option (1-9): ");
+        } else {
             System.out.println("8. Exit");
             System.out.print("Please select an option (1-8): ");
-        } else {
-            System.out.println("7. Exit");
-            System.out.print("Please select an option (1-7): ");
         }
     }
 }

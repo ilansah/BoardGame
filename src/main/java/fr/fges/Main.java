@@ -1,6 +1,7 @@
 package fr.fges;
 
 import fr.fges.domain.service.GameService;
+import fr.fges.domain.service.TournamentService;
 import fr.fges.exceptions.MenuExitException;
 import fr.fges.infrastructure.repository.CsvGameRepository;
 import fr.fges.infrastructure.repository.GameRepository;
@@ -33,10 +34,11 @@ public class Main {
         }
 
         GameService gameService = new GameService(repository);
+        TournamentService tournamentService = new TournamentService();
 
         System.out.println("Using storage file: " + storageFile);
 
-        Menu menu = new Menu(gameService);
+        Menu menu = new Menu(gameService, tournamentService);
 
         while (true) {
             try {

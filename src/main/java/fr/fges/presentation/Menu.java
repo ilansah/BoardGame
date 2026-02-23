@@ -2,6 +2,7 @@ package fr.fges.presentation;
 
 import fr.fges.application.command.*;
 import fr.fges.domain.service.GameService;
+import fr.fges.domain.service.TournamentService;
 import fr.fges.exceptions.MenuExitException;
 
 import java.time.DayOfWeek;
@@ -14,11 +15,13 @@ public class Menu {
     private final InputHandler inputHandler;
     private final MenuDisplay menuDisplay;
     private final GameService gameService;
+    private final TournamentService tournamentService;
 
-    public Menu(GameService gameService) {
+    public Menu(GameService gameService, TournamentService tournamentService) {
         this.inputHandler = new InputHandler();
         this.menuDisplay = new MenuDisplay();
         this.gameService = gameService;
+        this.tournamentService = tournamentService;
     }
 
     public void handleMenu() throws MenuExitException {
@@ -42,14 +45,15 @@ public class Menu {
             case 4 -> new RecommendGameCommand(gameService, inputHandler).execute();
             case 5 -> new FindGamesByPlayerCountCommand(gameService, inputHandler).execute();
             case 6 -> new UndoCommand(gameService).execute();
-            case 7 -> {
+            case 7 -> new TournamentCommand(gameService, tournamentService, inputHandler).execute();
+            case 8 -> {
                 if (isWeekend) {
                     new WeekendSummaryCommand(gameService).execute();
                 } else {
                     new ExitCommand().execute();
                 }
             }
-            case 8 -> {
+            case 9 -> {
                 if (isWeekend) {
                     new ExitCommand().execute();
                 } else {
