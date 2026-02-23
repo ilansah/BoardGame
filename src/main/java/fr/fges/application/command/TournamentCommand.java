@@ -101,7 +101,7 @@ public class TournamentCommand implements Command {
         
         // Sélection du jeu (filtré pour 2 joueurs uniquement)
         List<BoardGame> twoPlayerGames = gameService.getAllGames().stream()
-                .filter(g -> g.minPlayers() == 2 && g.maxPlayers() == 2)
+                .filter(g -> g.minPlayers() == 2 && g.maxPlayers() >= 2)
                 .toList();
         
         if (twoPlayerGames.isEmpty()) {

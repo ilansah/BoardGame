@@ -24,15 +24,15 @@ public class TournamentService {
     /**
      * Crée un nouveau tournoi
      * @param name Le nom du tournoi
-     * @param game Le jeu (doit être pour 2 joueurs)
+     * @param game Le jeu (doit pouvoir se jouer à 2 joueurs)
      * @param format Le format du tournoi
-     * @throws IllegalArgumentException si le jeu n'est pas pour 2 joueurs
+     * @throws IllegalArgumentException si le jeu ne peut pas se jouer à 2 joueurs
      */
     public void createTournament(String name, BoardGame game, Tournament.Format format) {
-        // Validation : le jeu doit être strictement pour 2 joueurs
-        if (game.minPlayers() != 2 || game.maxPlayers() != 2) {
+        // Validation : le jeu doit pouvoir se jouer à 2 joueurs
+        if (game.minPlayers() > 2 || game.maxPlayers() < 2) {
             throw new IllegalArgumentException(
-                "Le jeu doit être strictement pour 2 joueurs. " +
+                "Le jeu doit pouvoir se jouer à 2 joueurs. " +
                 game.title() + " est pour " + game.minPlayers() + "-" + game.maxPlayers() + " joueurs."
             );
         }
