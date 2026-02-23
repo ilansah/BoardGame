@@ -312,4 +312,9 @@ public class TournamentCommand implements Command {
         List<Player> ranking = tournamentService.getRanking();
         TournamentFormatter.displayRanking(ranking);
     }
+
+    @Override
+    public String getName() {
+        return "Tournament Mode";
+    }
 }
