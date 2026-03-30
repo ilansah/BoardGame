@@ -285,3 +285,62 @@ On avait fait un peu trop avec le pattern Strategy pour quelque chose qui devait
 
 Le code est maintenant beaucoup plus lisible et direct. Au lieu d'avoir une architecture complexe pour afficher un menu, on a juste une méthode avec un if/else.
 
+**Date :** 30/03/2026
+
+## Refactoring Menu : Switch/Case vers Liste Dynamique (Antonin)
+
+Après avoir simplifié le menu avec le switch/case, on s'est rendu compte qu'on pouvait le rendre encore plus flexible et maintenable. J'ai remplacé le switch/case par une **liste dynamique de commandes**.
+
+### Ce qui a changé :
+
+**1. Avant (Switch/Case) :**
+```java
+private void executeCommand(int option, boolean isWeekend) throws MenuExitException {
+    switch (option) {
+        case 1 -> new AddAction(...).execute();
+        case 2 -> new RemoveGameCommand(...).execute();
+        //etc...
+        case 8 -> if (isWeekend) { ... } else { ... }
+        case 9 -> if (isWeekend) { ... } else { ... }
+        default -> ...
+    }
+}
+```
+
+**2. Après (Liste Dynamique) :**
+```java
+public Menu(GameService gameService, TournamentService tournamentService) {
+    this.commands = new ArrayList<>();
+    commands.add(new AddAction(...));
+    commands.add(new RemoveGameCommand(...));
+    //etc..
+    commands.add(new ExitCommand());
+}
+
+public void handleMenu() throws MenuExitException {
+    menuDisplay.display(commands);
+    int option = Integer.parseInt(inputHandler.getInput());
+    if (option >= 1 && option <= commands.size()) {
+        commands.get(option - 1).execute();
+    }
+}
+```
+
+### Avantages du changement :
+
+- **Plus simple** : Pas de switch/case ni conditions imbriquées
+- **Plus maintenable** : Ajouter une commande = l'ajouter à la liste
+- **Plus flexible** : Le nombre d'options s'ajuste automatiquement
+
+### Modifications apportées :
+
+**Menu.java :**
+- Ajout de `List<Command> commands` initialisée dans le constructeur
+- Suppression des méthodes `initializeCommands()`, `executeCommand()`, `isWeekend()`
+- Simplification de `handleMenu()` : affiche → parse → exécute
+
+**MenuDisplay.java :**
+- Signature : `display(List<Command> commands)` au lieu de `display(boolean isWeekend)`
+- Affichage dynamique : boucle for qui affiche chaque commande
+
+

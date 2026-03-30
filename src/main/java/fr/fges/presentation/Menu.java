@@ -7,6 +7,8 @@ import fr.fges.exceptions.MenuExitException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Menu - Orchestrateur principal de l'interface utilisateur
@@ -14,60 +16,38 @@ import java.time.LocalDate;
 public class Menu {
     private final InputHandler inputHandler;
     private final MenuDisplay menuDisplay;
-    private final GameService gameService;
-    private final TournamentService tournamentService;
+    private final List<Command> commands;
 
     public Menu(GameService gameService, TournamentService tournamentService) {
         this.inputHandler = new InputHandler();
         this.menuDisplay = new MenuDisplay();
-        this.gameService = gameService;
-        this.tournamentService = tournamentService;
+        this.commands = new ArrayList<>();
+        
+        commands.add(new AddAction(gameService, inputHandler));
+        commands.add(new RemoveGameCommand(gameService, inputHandler));
+        commands.add(new ListGamesCommand(gameService));
+        commands.add(new RecommendGameCommand(gameService, inputHandler));
+        commands.add(new FindGamesByPlayerCountCommand(gameService, inputHandler));
+        commands.add(new UndoCommand(gameService));
+        commands.add(new TournamentCommand(gameService, tournamentService, inputHandler));
+        commands.add(new WeekendSummaryCommand(gameService));
+        commands.add(new ExitCommand());
     }
 
     public void handleMenu() throws MenuExitException {
-        boolean isWeekend = isWeekend();
-        menuDisplay.display(isWeekend);
+        menuDisplay.display(commands);
 
         String choice = inputHandler.getInput();
         try {
             int option = Integer.parseInt(choice);
-            executeCommand(option, isWeekend);
+            if (option >= 1 && option <= commands.size()) {
+                commands.get(option - 1).execute();
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
         }
-    }
-
-    private void executeCommand(int option, boolean isWeekend) throws MenuExitException {
-        switch (option) {
-            case 1 -> new AddAction(gameService, inputHandler).execute();
-            case 2 -> new RemoveGameCommand(gameService, inputHandler).execute();
-            case 3 -> new ListGamesCommand(gameService).execute();
-            case 4 -> new RecommendGameCommand(gameService, inputHandler).execute();
-            case 5 -> new FindGamesByPlayerCountCommand(gameService, inputHandler).execute();
-            case 6 -> new UndoCommand(gameService).execute();
-            case 7 -> new TournamentCommand(gameService, tournamentService, inputHandler).execute();
-            case 8 -> {
-                if (isWeekend) {
-                    new WeekendSummaryCommand(gameService).execute();
-                } else {
-                    new ExitCommand().execute();
-                }
-            }
-            case 9 -> {
-                if (isWeekend) {
-                    new ExitCommand().execute();
-                } else {
-                    System.out.println("Invalid choice. Please try again.");
-                }
-            }
-            default -> System.out.println("Invalid choice. Please try again.");
-        }
-    }
-
-    private boolean isWeekend() {
-        LocalDate today = LocalDate.now();
-        DayOfWeek dayOfWeek = today.getDayOfWeek();
-        return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
     }
 
     public void close() {

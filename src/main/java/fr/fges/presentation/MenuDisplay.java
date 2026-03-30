@@ -1,31 +1,24 @@
 package fr.fges.presentation;
 
+import fr.fges.application.command.Command;
+import java.util.List;
+
 /**
  * MenuDisplay - Classe simple pour l'affichage du menu
  */
 public class MenuDisplay {
 
     /**
-     * Affiche le menu en fonction du jour (weekend ou semaine)
-     * @param isWeekend true si c'est le weekend, false sinon
+     * Affiche le menu dynamiquement en fonction de la liste de commandes
+     * @param commands liste de commandes à afficher
      */
-    public void display(boolean isWeekend) {
+    public void display(List<Command> commands) {
         System.out.println("\n=== Board Game Collection ===");
-        System.out.println("1. Add Board Game");
-        System.out.println("2. Remove Board Game");
-        System.out.println("3. List All Board Games");
-        System.out.println("4. Recommend Game");
-        System.out.println("5. Find Games by Player Count");
-        System.out.println("6. Undo Last Action");
-        System.out.println("7. Tournament Mode");
         
-        if (isWeekend) {
-            System.out.println("8. Weekend Summary");
-            System.out.println("9. Exit");
-            System.out.print("Please select an option (1-9): ");
-        } else {
-            System.out.println("8. Exit");
-            System.out.print("Please select an option (1-8): ");
+        for (int i = 0; i < commands.size(); i++) {
+            System.out.println((i + 1) + ". " + commands.get(i).getName());
         }
+        
+        System.out.print("Please select an option (1-" + commands.size() + "): ");
     }
 }
