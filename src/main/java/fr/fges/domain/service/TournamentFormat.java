@@ -23,8 +23,4 @@ public interface TournamentFormat {
      */
     Match getNextMatch(Tournament tournament);
 
-    /**
-     * Retourne le nom du format
-     */
-    String getFormatName();
 }

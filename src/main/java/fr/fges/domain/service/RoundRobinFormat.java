@@ -34,8 +34,4 @@ public class RoundRobinFormat implements TournamentFormat {
                 .orElse(null);
     }
 
-    @Override
-    public String getFormatName() {
-        return "Round Robin (tous contre tous)";
-    }
 }
