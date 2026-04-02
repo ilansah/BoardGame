@@ -2,6 +2,7 @@ package fr.fges.service;
 
 import fr.fges.domain.model.BoardGame;
 import fr.fges.domain.service.GameService;
+import fr.fges.exceptions.DuplicateGameException;
 import fr.fges.infrastructure.repository.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,8 +89,8 @@ class GameServiceTest {
         // Vérifier que la taille n'a pas changé
         assertEquals(3, gameService.getAllGames().size());
 
-        // Vérifier que save() a quand même été appelé
-        verify(mockRepository, times(1)).save(anyList());
+        // Vérifier que save() n'a pas été appelé
+        verify(mockRepository, never()).save(anyList());
     }
 
     @Test
@@ -261,11 +262,12 @@ class GameServiceTest {
         List<BoardGame> result = gameService.findGamesByPlayerCount(3);
 
         // Vérifier que les bons jeux sont retournés
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         
         // Vérifier l'ordre alphabétique
         assertEquals("7 Wonders", result.get(0).title()); // 2-7 joueurs, contient 3
-        assertEquals("Catan", result.get(1).title());     // 3-4 joueurs, contient 3
+        assertEquals("Azul", result.get(1).title());      // 2-4 joueurs, contient 3
+        assertEquals("Catan", result.get(2).title());     // 3-4 joueurs, contient 3
     }
 
     @Test
@@ -325,3 +327,4 @@ class GameServiceTest {
         // Vérifier que la liste est vide
         assertTrue(result.isEmpty());
     }
+}
