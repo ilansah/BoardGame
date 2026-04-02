@@ -1,6 +1,6 @@
 package fr.fges.domain.model;
 
-import fr.fges.domain.service.GameService;
+import fr.fges.domain.service.GameMutationPort;
 
 /**
  * RemoveAction - Encapsule l'action de suppression d'un jeu
@@ -9,17 +9,17 @@ public class RemoveAction implements Action {
 
     private final BoardGame game;
     
-    private final GameService gameService;
+    private final GameMutationPort gameMutationPort;
 
-    public RemoveAction(BoardGame game, GameService gameService) {
+    public RemoveAction(BoardGame game, GameMutationPort gameMutationPort) {
         this.game = game;
-        this.gameService = gameService;
+        this.gameMutationPort = gameMutationPort;
     }
 
     @Override
     public void undo() {
         // Re ajoute le jeu sans créer d'action dans l'historique
-        gameService.addGameDirectly(game);
+        gameMutationPort.addGameDirectly(game);
     }
 
 

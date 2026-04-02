@@ -1,11 +1,11 @@
-package fr.fges.infrastructure.repository;
+package fr.fges.domain.port;
 
 import fr.fges.domain.model.BoardGame;
 
 import java.util.List;
 
 /**
- * GameRepository - Interface pour la persistence des jeux
+ * Port metier pour la persistence des jeux.
  */
 public interface GameRepository {
 

@@ -1,8 +1,8 @@
 package fr.fges.domain.service;
 
 import fr.fges.domain.model.BoardGame;
+import fr.fges.domain.port.GameRepository;
 import fr.fges.exceptions.DuplicateGameException;
-import fr.fges.infrastructure.repository.GameRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,74 +13,75 @@ import java.util.Optional;
  * Service specialise pour la gestion CRUD des jeux.
  */
 public class GameManagementService {
-    private final List<BoardGame> games;
     private final GameRepository repository;
 
     public GameManagementService(GameRepository repository) {
         this.repository = repository;
-        this.games = new ArrayList<>();
+        // Validation d'acces repository au demarrage, sans conserver de cache en RAM.
         loadGames();
     }
 
     public void addGame(BoardGame game) {
-        if (existsByTitle(game.title())) {
+        List<BoardGame> games = loadGames();
+
+        if (games.stream().anyMatch(existing -> existing.title().equalsIgnoreCase(game.title()))) {
             throw new DuplicateGameException(game.title());
         }
 
         games.add(game);
-        saveGames();
+        repository.save(games);
     }
 
     public void removeGame(String title) {
-        Optional<BoardGame> gameToRemove = findByTitle(title);
-        if (gameToRemove.isPresent()) {
-            games.removeIf(game -> game.title().equals(title));
-            saveGames();
+        List<BoardGame> games = loadGames();
+        boolean removed = games.removeIf(game -> game.title().equals(title));
+
+        if (removed) {
+            repository.save(games);
         }
     }
 
     public void addGameDirectly(BoardGame game) {
+        List<BoardGame> games = loadGames();
         games.add(game);
-        saveGames();
+        repository.save(games);
     }
 
     public void removeGameDirectly(String title) {
-        games.removeIf(game -> game.title().equals(title));
-        saveGames();
+        List<BoardGame> games = loadGames();
+        boolean removed = games.removeIf(game -> game.title().equals(title));
+
+        if (removed) {
+            repository.save(games);
+        }
     }
 
     public List<BoardGame> getAllGames() {
-        return new ArrayList<>(games);
+        return loadGames();
     }
 
     public List<BoardGame> getSortedGames() {
-        return games.stream()
+        return loadGames().stream()
                 .sorted(Comparator.comparing(BoardGame::title))
                 .toList();
     }
 
     public Optional<BoardGame> findByTitle(String title) {
-        return games.stream()
+        return loadGames().stream()
                 .filter(game -> game.title().equals(title))
                 .findFirst();
     }
 
     public boolean isEmpty() {
-        return games.isEmpty();
+        return loadGames().isEmpty();
     }
 
     public boolean existsByTitle(String title) {
-        return games.stream()
+        return loadGames().stream()
                 .anyMatch(game -> game.title().equalsIgnoreCase(title));
     }
 
-    private void loadGames() {
-        List<BoardGame> loadedGames = repository.findAll();
-        games.clear();
-        games.addAll(loadedGames);
-    }
-
-    private void saveGames() {
-        repository.save(games);
+    private List<BoardGame> loadGames() {
+        return new ArrayList<>(repository.findAll());
     }
 }

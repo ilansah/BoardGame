@@ -1,6 +1,6 @@
 package fr.fges.domain.model;
 
-import fr.fges.domain.service.GameService;
+import fr.fges.domain.service.GameMutationPort;
 
 /**
  * AddAction - Encapsule l'action d'ajout d'un jeu
@@ -8,18 +8,18 @@ import fr.fges.domain.service.GameService;
 public class AddAction implements Action {
     private final BoardGame game;
     
-    private final GameService gameService;
+    private final GameMutationPort gameMutationPort;
 
-    public AddAction(BoardGame game, GameService gameService) {
+    public AddAction(BoardGame game, GameMutationPort gameMutationPort) {
         this.game = game;
-        this.gameService = gameService;
+        this.gameMutationPort = gameMutationPort;
     }
 
 
     @Override
     public void undo() {
         // Supprime le jeu sans créer d'action dans l'historique
-        gameService.removeGameDirectly(game.title());
+        gameMutationPort.removeGameDirectly(game.title());
     }
 
     @Override

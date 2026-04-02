@@ -2,9 +2,9 @@ package fr.fges;
 
 import fr.fges.domain.service.GameService;
 import fr.fges.domain.service.TournamentService;
+import fr.fges.domain.port.GameRepository;
 import fr.fges.exceptions.MenuExitException;
 import fr.fges.infrastructure.repository.CsvGameRepository;
-import fr.fges.infrastructure.repository.GameRepository;
 import fr.fges.infrastructure.repository.JsonGameRepository;
 import fr.fges.presentation.Menu;
 

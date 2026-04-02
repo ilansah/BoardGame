@@ -1,6 +1,7 @@
 package fr.fges.infrastructure.repository;
 
 import fr.fges.domain.model.BoardGame;
+import fr.fges.domain.port.GameRepository;
 
 import java.io.*;
 import java.util.ArrayList;

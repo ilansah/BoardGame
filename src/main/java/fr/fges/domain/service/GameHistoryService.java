@@ -16,12 +16,12 @@ public class GameHistoryService {
         this.actionHistory = new ActionHistory();
     }
 
-    public void recordAddAction(BoardGame game, GameService gameService) {
-        actionHistory.addAction(new AddAction(game, gameService));
+    public void recordAddAction(BoardGame game, GameMutationPort gameMutationPort) {
+        actionHistory.addAction(new AddAction(game, gameMutationPort));
     }
 
-    public void recordRemoveAction(BoardGame game, GameService gameService) {
-        actionHistory.addAction(new RemoveAction(game, gameService));
+    public void recordRemoveAction(BoardGame game, GameMutationPort gameMutationPort) {
+        actionHistory.addAction(new RemoveAction(game, gameMutationPort));
     }
 
     public boolean undo() {

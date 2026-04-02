@@ -2,7 +2,7 @@ package fr.fges.domain.service;
 
 import fr.fges.domain.model.Action;
 import fr.fges.domain.model.BoardGame;
-import fr.fges.infrastructure.repository.GameRepository;
+import fr.fges.domain.port.GameRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * GameService - Service métier pour la gestion des jeux de société
  */
-public class GameService {
+public class GameService implements GameMutationPort {
     private final GameManagementService gameManagementService;
     private final GameRecommendationService gameRecommendationService;
     private final GameHistoryService gameHistoryService;
@@ -38,12 +38,12 @@ public class GameService {
         }
     }
 
-
+    @Override
     public void addGameDirectly(BoardGame game) {
         gameManagementService.addGameDirectly(game);
     }
 
- 
+    @Override
     public void removeGameDirectly(String title) {
         gameManagementService.removeGameDirectly(title);
     }

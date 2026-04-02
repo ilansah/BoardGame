@@ -3,6 +3,7 @@ package fr.fges.infrastructure.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.fges.domain.model.BoardGame;
+import fr.fges.domain.port.GameRepository;
 
 import java.io.File;
 import java.io.IOException;

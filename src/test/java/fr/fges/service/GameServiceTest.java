@@ -1,9 +1,9 @@
 package fr.fges.service;
 
 import fr.fges.domain.model.BoardGame;
+import fr.fges.domain.port.GameRepository;
 import fr.fges.domain.service.GameService;
 import fr.fges.exceptions.DuplicateGameException;
-import fr.fges.infrastructure.repository.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +35,12 @@ class GameServiceTest {
         testGames.add(new BoardGame("Azul", 2, 4, "family"));
         testGames.add(new BoardGame("7 Wonders", 2, 7, "strategy"));
 
-        when(mockRepository.findAll()).thenReturn(new ArrayList<>(testGames));
+        when(mockRepository.findAll()).thenAnswer(invocation -> new ArrayList<>(testGames));
+        doAnswer(invocation -> {
+            List<BoardGame> savedGames = invocation.getArgument(0);
+            testGames = new ArrayList<>(savedGames);
+            return null;
+        }).when(mockRepository).save(anyList());
 
         gameService = new GameService(mockRepository);
     }
