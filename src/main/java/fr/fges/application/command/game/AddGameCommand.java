@@ -1,18 +1,19 @@
-package fr.fges.application.command;
+package fr.fges.application.command.game;
 
+import fr.fges.application.command.Command;
 import fr.fges.domain.model.BoardGame;
 import fr.fges.domain.service.GameService;
 import fr.fges.exceptions.DuplicateGameException;
 import fr.fges.presentation.InputHandler;
 
 /**
- * AddAction - Commande pour ajouter un jeu
+ * AddGameCommand - Commande pour ajouter un jeu
  */
-public class AddAction implements Command {
+public class AddGameCommand implements Command {
     private final GameService gameService;
     private final InputHandler inputHandler;
 
-    public AddAction(GameService gameService, InputHandler inputHandler) {
+    public AddGameCommand(GameService gameService, InputHandler inputHandler) {
         this.gameService = gameService;
         this.inputHandler = inputHandler;
     }

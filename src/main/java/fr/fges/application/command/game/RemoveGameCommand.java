@@ -1,5 +1,6 @@
-package fr.fges.application.command;
+package fr.fges.application.command.game;
 
+import fr.fges.application.command.Command;
 import fr.fges.domain.model.BoardGame;
 import fr.fges.domain.service.GameService;
 import fr.fges.presentation.InputHandler;
@@ -28,7 +29,6 @@ public class RemoveGameCommand implements Command {
             gameService.removeGame(title);
             System.out.println("Board game removed successfully.");
         } else {
-            // Sinon on affiche un message d'erreur
             System.out.println("No board game found with that title.");
         }
     }

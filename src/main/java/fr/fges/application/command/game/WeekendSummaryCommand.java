@@ -1,5 +1,6 @@
-package fr.fges.application.command;
+package fr.fges.application.command.game;
 
+import fr.fges.application.command.Command;
 import fr.fges.domain.model.BoardGame;
 import fr.fges.domain.service.GameService;
 

@@ -1,5 +1,6 @@
-package fr.fges.application.command;
+package fr.fges.application.command.system;
 
+import fr.fges.application.command.Command;
 import fr.fges.exceptions.MenuExitException;
 
 /**

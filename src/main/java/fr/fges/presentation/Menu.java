@@ -1,6 +1,15 @@
 package fr.fges.presentation;
 
-import fr.fges.application.command.*;
+import fr.fges.application.command.Command;
+import fr.fges.application.command.game.AddGameCommand;
+import fr.fges.application.command.game.FindGamesByPlayerCountCommand;
+import fr.fges.application.command.game.ListGamesCommand;
+import fr.fges.application.command.game.RecommendGameCommand;
+import fr.fges.application.command.game.RemoveGameCommand;
+import fr.fges.application.command.game.UndoCommand;
+import fr.fges.application.command.game.WeekendSummaryCommand;
+import fr.fges.application.command.system.ExitCommand;
+import fr.fges.application.command.tournament.TournamentCommand;
 import fr.fges.domain.service.GameService;
 import fr.fges.domain.service.TournamentService;
 import fr.fges.exceptions.MenuExitException;
@@ -23,7 +32,7 @@ public class Menu {
         this.menuDisplay = new MenuDisplay();
         this.commands = new ArrayList<>();
         
-        commands.add(new AddAction(gameService, inputHandler));
+        commands.add(new AddGameCommand(gameService, inputHandler));
         commands.add(new RemoveGameCommand(gameService, inputHandler));
         commands.add(new ListGamesCommand(gameService));
         commands.add(new RecommendGameCommand(gameService, inputHandler));

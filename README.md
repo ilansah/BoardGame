@@ -55,6 +55,7 @@ The storage file is passed as a command-line argument at startup.
 ## Documentation
 
 - [Output Examples](docs/output-example.md) - Example CLI sessions
+- [Architecture Cible](docs/architecture.md) - Structure recommandée du projet et des tests
 
 ## Dernières mises à jour (Ilan)
 
