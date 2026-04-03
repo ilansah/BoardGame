@@ -146,3 +146,153 @@ Si une classe contient une règle métier, elle va dans `domain`.
 Si une classe lit ou écrit un fichier, elle va dans `infrastructure`.
 
 Si une classe sert à relier une action UI à un service métier, elle va dans `application`.
+
+---
+
+## Diagramme de classes complet
+
+```mermaid
+graph TD
+    %% ── PRESENTATION ──────────────────────────
+    subgraph PRESENTATION["Présentation"]
+        Menu
+        MenuDisplay
+        InputHandler
+        TournamentFormatter
+    end
+
+    %% ── APPLICATION ───────────────────────────
+    subgraph APPLICATION["Application — Commands"]
+        CMD["«interface»\nCommand"]
+
+        subgraph GAME_CMD["Jeux"]
+            AddGameCommand
+            RemoveGameCommand
+            ListGamesCommand
+            RecommendGameCommand
+            FindGamesByPlayerCountCommand
+            UndoCommand
+            WeekendSummaryCommand
+        end
+
+        subgraph TOURNAMENT_CMD["Tournois"]
+            TournamentCommand
+            TournamentMenuCommand
+            TournamentSessionCommand
+        end
+
+        subgraph SYS_CMD["Système"]
+            ExitCommand
+        end
+    end
+
+    %% ── DOMAIN ────────────────────────────────
+    subgraph DOMAIN["Domaine"]
+        subgraph SERVICES["Services métier"]
+            GameService
+            GameManagementService
+            GameRecommendationService
+            GameHistoryService
+            TournamentService
+        end
+
+        subgraph STRATEGY["«Strategy» Format tournoi"]
+            TournamentFormat["«interface»\nTournamentFormat"]
+            RoundRobinFormat
+            KingOfTheHillFormat
+        end
+
+        subgraph MODEL["Modèle"]
+            BoardGame
+            Tournament
+            Player
+            Match
+            ActionHistory
+            Action["«interface»\nAction"]
+            AddAction
+            RemoveAction
+        end
+
+        subgraph PORTS["«Ports»"]
+            GameRepository["«interface»\nGameRepository"]
+            GameMutationPort["«interface»\nGameMutationPort"]
+        end
+    end
+
+    %% ── INFRASTRUCTURE ────────────────────────
+    subgraph INFRA["Infrastructure"]
+        JsonGameRepository
+        CsvGameRepository
+    end
+
+    %% ── EXCEPTIONS ────────────────────────────
+    subgraph EXC["Exceptions"]
+        DuplicateGameException
+        MenuExitException
+    end
+
+    %% ── RELATIONS ─────────────────────────────
+
+    %% Présentation → Application
+    Menu --> CMD
+    Menu --> MenuDisplay
+    Menu --> InputHandler
+    TournamentMenuCommand --> TournamentFormatter
+
+    %% Commands → Interface
+    AddGameCommand & RemoveGameCommand & ListGamesCommand --> CMD
+    RecommendGameCommand & FindGamesByPlayerCountCommand & UndoCommand --> CMD
+    WeekendSummaryCommand & ExitCommand --> CMD
+    TournamentCommand & TournamentMenuCommand & TournamentSessionCommand --> CMD
+
+    %% Commands → Services
+    AddGameCommand & RemoveGameCommand --> GameManagementService
+    ListGamesCommand & WeekendSummaryCommand --> GameService
+    RecommendGameCommand & FindGamesByPlayerCountCommand --> GameRecommendationService
+    UndoCommand --> GameHistoryService
+    TournamentMenuCommand & TournamentSessionCommand --> TournamentService
+
+    %% Services → Ports
+    GameService & GameRecommendationService --> GameRepository
+    GameManagementService --> GameMutationPort
+    GameManagementService --> ActionHistory
+    GameHistoryService --> ActionHistory
+
+    %% TournamentService → Strategy & Model
+    TournamentService --> TournamentFormat
+    TournamentService --> Tournament
+    RoundRobinFormat & KingOfTheHillFormat -.->|implémente| TournamentFormat
+
+    %% Model interne
+    Tournament --> Player
+    Tournament --> Match
+    Match --> Player
+    ActionHistory --> Action
+    AddAction & RemoveAction -.->|implémente| Action
+    AddAction & RemoveAction --> BoardGame
+
+    %% Infrastructure → Port
+    JsonGameRepository & CsvGameRepository -.->|implémente| GameRepository
+
+    %% Exceptions
+    AddGameCommand -.->|lève| DuplicateGameException
+    ExitCommand & TournamentService -.->|lève| MenuExitException
+
+    %% Styles
+    classDef layer fill:#1e293b,stroke:#334155,color:#f8fafc,font-weight:bold
+    classDef interface fill:#0f172a,stroke:#6366f1,color:#a5b4fc,stroke-dasharray:5
+    classDef service fill:#164e63,stroke:#0891b2,color:#e0f2fe
+    classDef model fill:#14532d,stroke:#16a34a,color:#dcfce7
+    classDef infra fill:#7c2d12,stroke:#ea580c,color:#ffedd5
+    classDef exc fill:#581c87,stroke:#a855f7,color:#f3e8ff
+    classDef cmd fill:#1e3a5f,stroke:#3b82f6,color:#bfdbfe
+
+    class CMD,TournamentFormat,GameRepository,GameMutationPort,Action interface
+    class GameService,GameManagementService,GameRecommendationService,GameHistoryService,TournamentService service
+    class BoardGame,Tournament,Player,Match,ActionHistory,AddAction,RemoveAction model
+    class JsonGameRepository,CsvGameRepository,RoundRobinFormat,KingOfTheHillFormat infra
+    class DuplicateGameException,MenuExitException exc
+    class AddGameCommand,RemoveGameCommand,ListGamesCommand,RecommendGameCommand,FindGamesByPlayerCountCommand,UndoCommand,WeekendSummaryCommand,ExitCommand,TournamentCommand,TournamentMenuCommand,TournamentSessionCommand cmd
+```
+
+
