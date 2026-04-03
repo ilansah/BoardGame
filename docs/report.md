@@ -343,4 +343,18 @@ public void handleMenu() throws MenuExitException {
 - Signature : `display(List<Command> commands)` au lieu de `display(boolean isWeekend)`
 - Affichage dynamique : boucle for qui affiche chaque commande
 
+## Dernières mises à jour (Ilan)
 
+**Séparation de l'UI et du Domaine (Single Responsibility Principle & MVC)** : J'ai retiré la méthode `getFormatName()` de l'interface `TournamentFormat` et de ses implémentations (`RoundRobinFormat` et `KingOfTheHillFormat`). Le domaine n'a pas à gérer le texte affiché pour l'utilisateur. Toute la partie UI est désormais centralisée dans le `TournamentFormatter` au niveau de la couche de présentation. Cela respecte le SRP (Principe de Responsabilité Unique) car la logique métier du format de tournoi n'est plus couplée à l'affichage.
+
+**Amélioration du pattern Strategy (Stratégie)** : L'interface `TournamentFormat` agit comme le pattern *Strategy*, permettant d'interchanger les comportements de tournoi (`RoundRobin`, `KingOfTheHill`) de façon dynamique. J'ai nettoyé le pattern pour qu'il se concentre uniquement sur son rôle algorithmique (`getNextMatch` et `generateMatches`). 
+
+**Refactorisation du format King of the Hill (Boucle `do-while`)** : J'ai modifié la logique pour trouver le prochain adversaire dans l'algorithme `KingOfTheHillFormat`. L'ancienne méthode `findNextOpponent` était trop complexe avec ses streams. Je l'ai remplacée par une simple boucle `do-while` directement dans `getNextMatch`. Ça simule parfaitement une file d'attente circulaire (le perdant repart en fin de file) en lisant simplement l'index. L'algorithme de notre *Strategy* est maintenant beaucoup plus clair et performant !
+
+## Dernières mises à jour (Victorian)
+
+- **Correction de bugs** (`e9a63d9`, `35e1d23`)
+- **Implémentation complète de tournoi (sans les tests)** (`a451bde`)
+- **Ajout de la fonctionnalité de recherche de partie par nombre de joueurs** (`183c9ad`) : Ajout de la fonctionnalité et des tests correspondants.
+- **Ajout de fonctionnalités et tests** (`eaf16d9`) : Ajout de tests et mise à jour du rapport pour correspondre aux tests.
+- **Gestion des erreurs/exceptions** (`3522d51`) : Ajout d'une meilleure gestion des exceptions.
